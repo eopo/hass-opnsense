@@ -32,4 +32,4 @@ jobs:
         uses: pre-commit-ci/lite-action@v1.1.0
         if: always()
       - name: Run mypy
-        run: mypy "./custom_components/opnsense/" --install-types --non-interactive --config-file pyproject.toml
+        run: mypy "./custom_components/opnsense-match/" --install-types --non-interactive --config-file pyproject.toml
