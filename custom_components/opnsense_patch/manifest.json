@@ -1,0 +1,12 @@
+{
+    "domain": "opnsense_patch",
+    "name": "OPNsense Patch",
+    "codeowners": ["@travisghansen", "@Snuffy2"],
+    "config_flow": true,
+    "dependencies": [],
+    "documentation": "https://github.com/eopo/hass-opnsense",
+    "iot_class": "local_polling",
+    "issue_tracker": "https://github.com/eopo/hass-opnsense/issues",
+    "requirements": ["python-dateutil", "awesomeversion"],
+    "version": "v0.3.17"
+}

@@ -10,7 +10,7 @@ from homeassistant.components.sensor import (
 from homeassistant.const import PERCENTAGE, UnitOfInformation, UnitOfTime
 
 VERSION = "v0.3.17"
-DOMAIN = "opnsense-patch"
+DOMAIN = "opnsense_patch"
 OPNSENSE_LTD_FIRMWARE = "24.7"  # Some functions may not work but the integration in general should work. Show repair warning.
 OPNSENSE_MIN_FIRMWARE = "24.1"  # Don't allow install, will not work.
 
