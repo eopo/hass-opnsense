@@ -1,4 +1,4 @@
-name: Update Version and Create Zip on Release
+name: Update Version and Create Zip on Release - Patched version
 on:
   workflow_dispatch:
   release:
