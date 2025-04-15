@@ -21,11 +21,11 @@ jobs:
       - name: Update Version in Manifest
         if: ${{ github.event_name == 'release' && github.event.release.draft == false }}
         run: |
-          sed -i 's/\"version\"\s*\:\s*\".*\"/\"version\"\:\"${{ github.ref_name }}\"/g' ./custom_components/opnsense/manifest.json
+          sed -i 's/\"version\"\s*\:\s*\".*\"/\"version\"\:\"${{ github.ref_name }}\"/g' ./custom_components/opnsense_patch/manifest.json
       - name: Update Version in const.py
         if: ${{ github.event_name == 'release' && github.event.release.draft == false }}
         run: |
-          sed -i 's/^VERSION \= \".*\"/VERSION \= \"${{ github.ref_name }}\"/' ./custom_components/opnsense/const.py
+          sed -i 's/^VERSION \= \".*\"/VERSION \= \"${{ github.ref_name }}\"/' ./custom_components/opnsense_patch/const.py
       - name: Update Changelog
         if: ${{ github.event_name == 'release' && github.event.release.draft == false && github.event.release.prerelease == false  }}
         uses: rhysd/changelog-from-release/action@v3
@@ -49,8 +49,8 @@ jobs:
         if: ${{ github.event_name == 'release' && github.event.release.draft == false }}
         id: extract_variables
         run: |
-          OPNSENSE_LTD_FIRMWARE="$(grep 'OPNSENSE_LTD_FIRMWARE' custom_components/opnsense/const.py | cut -d '"' -f2)"
-          OPNSENSE_MIN_FIRMWARE="$(grep 'OPNSENSE_MIN_FIRMWARE' custom_components/opnsense/const.py | cut -d '"' -f2)"
+          OPNSENSE_LTD_FIRMWARE="$(grep 'OPNSENSE_LTD_FIRMWARE' custom_components/opnsense_patch/const.py | cut -d '"' -f2)"
+          OPNSENSE_MIN_FIRMWARE="$(grep 'OPNSENSE_MIN_FIRMWARE' custom_components/opnsense_patch/const.py | cut -d '"' -f2)"
           echo "OPNSENSE_LTD_FIRMWARE=$OPNSENSE_LTD_FIRMWARE" >> "$GITHUB_ENV"
           echo "OPNSENSE_MIN_FIRMWARE=$OPNSENSE_MIN_FIRMWARE" >> "$GITHUB_ENV"
 
@@ -67,19 +67,19 @@ jobs:
         uses: thedoctor0/zip-release@0.7.6
         with:
           type: 'zip'
-          filename: 'opnsense.zip'
-          directory: ./custom_components/opnsense
+          filename: 'opnsense_patch.zip'
+          directory: ./custom_components/opnsense_patch
       - name: Upload Zip to Release
         if: ${{ github.event_name == 'release' && github.event.release.draft == false }}
         uses: Roang-zero1/github-upload-release-artifacts-action@v3.0.0
         with:
-          args: ./custom_components/opnsense/opnsense.zip
+          args: ./custom_components/opnsense_patch/opnsense_patch.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Add Zip to Action
         if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: actions/upload-artifact@v4.6.0
         with:
-          name: opnsense
-          path: ./custom_components/opnsense/opnsense.zip
+          name: opnsense_patch
+          path: ./custom_components/opnsense_patch/opnsense_patch.zip
           if-no-files-found: error
